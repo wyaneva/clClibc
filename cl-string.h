@@ -33,4 +33,16 @@ __global char *strcpy(__global char* dest, __constant char* source)
   return dest;
 }
 
+size_t strlen(const char* str)
+{
+  size_t len = 0; 
+  do
+  {
+    len++;
+  }
+  while(*str++);
+
+  return len;
+}
+
 #endif

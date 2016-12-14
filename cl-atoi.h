@@ -22,7 +22,7 @@
 
 #include "cl-ctype.h"
 
-int atoi(char *str)
+int atoi(const char *str)
 {
     int res = 0;
     int sign = 1;

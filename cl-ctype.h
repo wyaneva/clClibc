@@ -32,7 +32,7 @@ int islower(int);
 int isupper(int);
 //int isxdigit(int);
 //int tolower(int);
-//int toupper(int);
+int toupper(int);
 
 
 int isalnum(int c)
@@ -58,6 +58,14 @@ int islower(int c)
 int isupper(int c)  
 {
   return c >= 'A' && c <= 'Z';
+}
+
+int toupper(int c)
+{
+  if( c >= 'a' && c <= 'z')
+    c = c -('a' - 'A');
+
+  return c;
 }
 
 #endif 

@@ -30,7 +30,7 @@ int islower(int);
 //int ispunct(int);
 //int isspace(int);
 int isupper(int);
-//int isxdigit(int);
+int isxdigit(int);
 //int tolower(int);
 int toupper(int);
 
@@ -58,6 +58,11 @@ int islower(int c)
 int isupper(int c)  
 {
   return c >= 'A' && c <= 'Z';
+}
+
+int isxdigit(int c)
+{
+  return isdigit(c) || (c >= 'a' && c <= 'f') || (c >= 'A' && c <= 'F');
 }
 
 int toupper(int c)

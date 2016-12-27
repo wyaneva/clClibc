@@ -22,6 +22,12 @@
 
 #include "cl-ctype.h"
 
+//integer
+int atoi(const char *);
+
+//long versions
+long int atol(const char *);
+
 int atoi(const char *str)
 {
     int res = 0;
@@ -50,6 +56,36 @@ int atoi(const char *str)
   
     // Return result with sign
     return sign*res;
+}
+
+long int atol(const char *str)
+{
+  long int res = 0;
+  int sign = 1;
+
+  // Skip any initial empty spaces
+  while (*str == ' ')
+    str++;
+  
+  // If number is negative, then update sign
+  if (*str == '-')
+  {
+    sign = -1;
+    str++;
+  }
+  
+  // Iterate through all digits of input string and update result
+  while (*str != '\0')
+  {
+    if (!isdigit(*str))
+      break;
+
+     res = res*10 + *str - '0';
+     str++;
+  }
+  
+  // Return result with sign
+  return sign*res;
 }
 
 #endif

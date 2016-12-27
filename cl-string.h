@@ -21,6 +21,17 @@
 #ifndef CL_STRING_H
 #define CL_STRING_H
 
+int strcmp(const char* s1, __constant char* s2)
+{
+  while(*s1 && (*s1 == *s2))
+  {
+    s1++;
+    s2++;
+  }
+
+  return (*s1 < *s2) ? -1 : *s1 > *s2;
+}
+
 __global char *strcpy(__global char* dest, __constant char* source)
 {
   __global char* destptr = dest;
@@ -33,7 +44,7 @@ __global char *strcpy(__global char* dest, __constant char* source)
   return dest;
 }
 
-size_t strlen(const char* str)
+size_t strlen(__constant char* str)
 {
   size_t len = 0; 
   do

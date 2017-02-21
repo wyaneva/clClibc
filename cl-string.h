@@ -47,11 +47,10 @@ __global char *strcpy(__global char* dest, __constant char* source)
 size_t strlen(__constant char* str)
 {
   size_t len = 0; 
-  do
+  while(*str++)
   {
     len++;
   }
-  while(*str++);
 
   return len;
 }

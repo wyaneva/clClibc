@@ -1,6 +1,4 @@
 /* 
- * cl-fgets.h
- * Reading line by line from a string, to emulate reading from FILE stream 
  *
  * Copyright 2016 Vanya Yaneva, The University of Edinburgh
  *   
@@ -18,9 +16,14 @@
  */
 
 
-#ifndef CL_FGETS_H
-#define CL_FGETS_H
+#ifndef CL_STDIO_H
+#define CL_STDIO_H
 
+//int *stdinptr;
+
+/*
+ * Reading line by line from a string, to emulate reading from FILE stream 
+ */
 char* fgets(char *s, int maxsize, char* stdin1, int* idxptr)
 {
   //TODO: what happens when we encounter the NUL char
@@ -43,8 +46,17 @@ char* fgets(char *s, int maxsize, char* stdin1, int* idxptr)
   }
   *sptr = '\0';
   /**idxptr += i;*/
-  printf("fgets: %s\n", );
   return s;
+}
+
+/*
+ * Reading line by line from a string, to emulate reading from FILE stream 
+ */
+int fgetc(char stdin1, int* idxptr)
+{
+  int c = (stdin1/*+*idxptr*/);
+  idxptr++;
+  return c;
 }
 
 #endif

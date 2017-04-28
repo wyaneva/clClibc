@@ -24,11 +24,11 @@
 char* fgets(char *s, int maxsize, char* stdin1, int* idxptr)
 {
   //TODO: what happens when we encounter the NUL char
-  if(*(stdin1+*idxptr) == '\0')
+  if(*(stdin1/*+*idxptr*/) == '\0')
     return 0;
 
   char* sptr = s;
-  char* iptr = stdin1+*idxptr;
+  char* iptr = stdin1/*+*idxptr*/;
   int i;
   for(i = 0; i < maxsize; i++, sptr++)
   {
@@ -42,7 +42,8 @@ char* fgets(char *s, int maxsize, char* stdin1, int* idxptr)
     }
   }
   *sptr = '\0';
-  *idxptr += i;
+  /**idxptr += i;*/
+  printf("fgets: %s\n", );
   return s;
 }
 

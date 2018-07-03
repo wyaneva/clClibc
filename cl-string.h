@@ -1,9 +1,9 @@
-/* 
+/*
  * cl-string.h
- * String manipulation. 
+ * String manipulation.
  *
- * Copyright 2016 Vanya Yaneva, The University of Edinburgh
- *   
+ * Copyright 2016-2018 Vanya Yaneva, The University of Edinburgh
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -17,14 +17,11 @@
  * limitations under the License.
  */
 
-
 #ifndef CL_STRING_H
 #define CL_STRING_H
 
-int strcmp(const char* s1, char* s2)
-{
-  while(*s1 && (*s1 == *s2))
-  {
+int strcmp(const char *s1, char *s2) {
+  while (*s1 && (*s1 == *s2)) {
     s1++;
     s2++;
   }
@@ -32,23 +29,27 @@ int strcmp(const char* s1, char* s2)
   return (*s1 < *s2) ? -1 : *s1 > *s2;
 }
 
-char *strcpy(char* dest, char* source)
-{
-  char* destptr = dest;
-  do
-  {
+char *strcpy(char *dest, char *source) {
+  char *destptr = dest;
+  do {
     *destptr = *source++;
-  }
-  while(*destptr++);
+  } while (*destptr++);
 
   return dest;
 }
 
-size_t strlen(char* str)
-{
-  size_t len = 0; 
-  while(*str++)
-  {
+size_t strlen(char *str) {
+  size_t len = 0;
+  while (*str++) {
+    len++;
+  }
+
+  return len;
+}
+
+size_t strlen_global(global char *str) {
+  size_t len = 0;
+  while (*str++) {
     len++;
   }
 

@@ -38,6 +38,15 @@ char *strcpy(char *dest, char *source) {
   return dest;
 }
 
+global char *strcpy_global(global char *dest, char *source) {
+  global char *destptr = dest;
+  do {
+    *destptr = *source++;
+  } while (*destptr++);
+
+  return dest;
+}
+
 size_t strlen(char *str) {
   size_t len = 0;
   while (*str++) {

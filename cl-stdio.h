@@ -1,7 +1,7 @@
-/* 
+/*
  *
- * Copyright 2016 Vanya Yaneva, The University of Edinburgh
- *   
+ * Copyright 2016-2020 Vanya Yaneva, The University of Edinburgh
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -15,48 +15,55 @@
  * limitations under the License.
  */
 
-
 #ifndef CL_STDIO_H
 #define CL_STDIO_H
 
-//int *stdinptr;
+#include "cl-stdlib.h"
 
-/*
- * Reading line by line from a string, to emulate reading from FILE stream 
- */
-char* fgets(char *s, int maxsize, char* stdin1, int* idxptr)
-{
-  //TODO: what happens when we encounter the NUL char
-  if(*(stdin1/*+*idxptr*/) == '\0')
+char *fgets(char *s, int maxsize, char *stdin1) {
+
+  if (*stdin1 == '\0')
     return 0;
 
-  char* sptr = s;
-  char* iptr = stdin1/*+*idxptr*/;
+  char *sptr = s;
+  char *iptr = stdin1;
   int i;
-  for(i = 0; i < maxsize; i++, sptr++)
-  {
+  for (i = 0; i < maxsize; i++, sptr++) {
     *sptr = *iptr++;
 
-    if(*sptr == '\n' || *sptr == '\0')
-    {
+    if (*sptr == '\n' || *sptr == '\0') {
       i++;
       sptr++;
       break;
     }
   }
   *sptr = '\0';
-  /**idxptr += i;*/
   return s;
 }
 
-/*
- * Reading line by line from a string, to emulate reading from FILE stream 
- */
-int fgetc(char stdin1, int* idxptr)
-{
-  int c = (stdin1/*+*idxptr*/);
-  idxptr++;
+int fgetc(char stdin1) {
+  int c = stdin1;
   return c;
+}
+
+int scanf(__constant char *format, int *arg, char **stdin1) {
+
+  if (**stdin1 == '\0')
+    return 0;
+
+  // parse the integer argument
+  *arg = atoi(*stdin1);
+
+  // move stdin ptr
+  while (**stdin1 != '\0') {
+    if (!isdigit(**stdin1)) {
+      (*stdin1)++;
+      break;
+    }
+    (*stdin1)++;
+  }
+
+  return 1;
 }
 
 #endif

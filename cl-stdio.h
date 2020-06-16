@@ -20,6 +20,11 @@
 
 #include "cl-stdlib.h"
 
+char *fgets(char *, int, char *);
+int fgetc(char);
+int scanfi(__constant char *, int *, char **);
+int scanfs(__constant char *, short *, char **);
+
 char *fgets(char *s, int maxsize, char *stdin1) {
 
   if (*stdin1 == '\0')
@@ -46,7 +51,27 @@ int fgetc(char stdin1) {
   return c;
 }
 
-int scanf(__constant char *format, int *arg, char **stdin1) {
+int scanfi(__constant char *format, int *arg, char **stdin1) {
+
+  if (**stdin1 == '\0')
+    return 0;
+
+  // parse the integer argument
+  *arg = atoi(*stdin1);
+
+  // move stdin ptr
+  while (**stdin1 != '\0') {
+    if (!isdigit(**stdin1)) {
+      (*stdin1)++;
+      break;
+    }
+    (*stdin1)++;
+  }
+
+  return 1;
+}
+
+int scanfs(__constant char *format, short *arg, char **stdin1) {
 
   if (**stdin1 == '\0')
     return 0;

@@ -56,8 +56,15 @@ int scanfi(__constant char *format, int *arg, char **stdin1) {
   if (**stdin1 == '\0')
     return 0;
 
+  // if number is negative, then update sign
+  int sign = 1;
+  if (**stdin1 == '-') {
+    sign = -1;
+    (*stdin1)++;
+  }
+
   // parse the integer argument
-  *arg = atoi(*stdin1);
+  *arg = atoi(*stdin1) * sign;
 
   // move stdin ptr
   while (**stdin1 != '\0') {
@@ -76,8 +83,15 @@ int scanfs(__constant char *format, short *arg, char **stdin1) {
   if (**stdin1 == '\0')
     return 0;
 
+  // if number is negative, then update sign
+  int sign = 1;
+  if (**stdin1 == '-') {
+    sign = -1;
+    (*stdin1)++;
+  }
+
   // parse the integer argument
-  *arg = atoi(*stdin1);
+  *arg = atoi(*stdin1)*sign;
 
   // move stdin ptr
   while (**stdin1 != '\0') {

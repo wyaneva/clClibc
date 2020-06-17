@@ -69,7 +69,9 @@ int scanfi(__constant char *format, int *arg, char **stdin1) {
   // move stdin ptr
   while (**stdin1 != '\0') {
     if (!isdigit(**stdin1)) {
-      (*stdin1)++;
+      while (!isdigit(**stdin1)) {
+        (*stdin1)++;
+      }
       break;
     }
     (*stdin1)++;
@@ -96,7 +98,9 @@ int scanfs(__constant char *format, short *arg, char **stdin1) {
   // move stdin ptr
   while (**stdin1 != '\0') {
     if (!isdigit(**stdin1)) {
-      (*stdin1)++;
+      while (!isdigit(**stdin1)) {
+        (*stdin1)++;
+      }
       break;
     }
     (*stdin1)++;

@@ -20,11 +20,19 @@
 
 #include "cl-stdlib.h"
 
+#if GPU_COMPILED
 char *fgets(char *, int, char *);
 int fgetc(char);
 int scanfi(__constant char *, int *, char **);
+int scanfl(__constant char *, long *, char **);
 int scanfs(__constant char *, short *, char **);
+#else
+int scanfi(char *, int *, char **);
+int scanfl(char *, long *, char **);
+int scanfs(char *, short *, char **);
+#endif
 
+#if GPU_COMPILED
 char *fgets(char *s, int maxsize, char *stdin1) {
 
   if (*stdin1 == '\0')
@@ -50,9 +58,13 @@ int fgetc(char stdin1) {
   int c = stdin1;
   return c;
 }
+#endif
 
+#if GPU_COMPILED
 int scanfi(__constant char *format, int *arg, char **stdin1) {
-
+#else
+int scanfi(char *format, int *arg, char **stdin1) {
+#endif
   if (**stdin1 == '\0')
     return 0;
 
@@ -80,8 +92,43 @@ int scanfi(__constant char *format, int *arg, char **stdin1) {
   return 1;
 }
 
-int scanfs(__constant char *format, short *arg, char **stdin1) {
+#if GPU_COMPILED
+int scanfl(__constant char *format, long *arg, char **stdin1) {
+#else
+int scanfl(char *format, long *arg, char **stdin1) {
+#endif
+  if (**stdin1 == '\0')
+    return 0;
 
+  // if number is negative, then update sign
+  int sign = 1;
+  if (**stdin1 == '-') {
+    sign = -1;
+    (*stdin1)++;
+  }
+
+  // parse the integer argument
+  *arg = atoi(*stdin1) * sign;
+
+  // move stdin ptr
+  while (**stdin1 != '\0') {
+    if (!isdigit(**stdin1)) {
+      while (!isdigit(**stdin1)) {
+        (*stdin1)++;
+      }
+      break;
+    }
+    (*stdin1)++;
+  }
+
+  return 1;
+}
+
+#if GPU_COMPILED
+int scanfs(__constant char *format, short *arg, char **stdin1) {
+#else
+int scanfs(char *format, short *arg, char **stdin1) {
+#endif
   if (**stdin1 == '\0')
     return 0;
 

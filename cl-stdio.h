@@ -81,7 +81,7 @@ int scanfi(char *format, int *arg, char **stdin1) {
   // move stdin ptr
   while (**stdin1 != '\0') {
     if (!isdigit(**stdin1)) {
-      while (!isdigit(**stdin1)) {
+      while (!isdigit(**stdin1) && **stdin1 != '\0') {
         (*stdin1)++;
       }
       break;
@@ -113,7 +113,7 @@ int scanfl(char *format, long *arg, char **stdin1) {
   // move stdin ptr
   while (**stdin1 != '\0') {
     if (!isdigit(**stdin1)) {
-      while (!isdigit(**stdin1)) {
+      while (!isdigit(**stdin1) && **stdin1 != '\0') {
         (*stdin1)++;
       }
       break;
@@ -140,12 +140,12 @@ int scanfs(char *format, short *arg, char **stdin1) {
   }
 
   // parse the integer argument
-  *arg = atoi(*stdin1)*sign;
+  *arg = atoi(*stdin1) * sign;
 
   // move stdin ptr
   while (**stdin1 != '\0') {
     if (!isdigit(**stdin1)) {
-      while (!isdigit(**stdin1)) {
+      while (!isdigit(**stdin1) && **stdin1 != '\0') {
         (*stdin1)++;
       }
       break;

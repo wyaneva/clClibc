@@ -65,8 +65,11 @@ int scanfi(__constant char *format, int *arg, char **stdin1) {
 #else
 int scanfi(char *format, int *arg, char **stdin1) {
 #endif
-  if (**stdin1 == '\0')
-    return 0;
+
+  // move stdin ptr to beginning of number
+  while (**stdin1 != '\0' && !isdigit(**stdin1) && **stdin1 != '-') {
+    (*stdin1)++;
+  }
 
   // if number is negative, then update sign
   int sign = 1;
@@ -78,14 +81,8 @@ int scanfi(char *format, int *arg, char **stdin1) {
   // parse the integer argument
   *arg = atoi(*stdin1) * sign;
 
-  // move stdin ptr
-  while (**stdin1 != '\0') {
-    if (!isdigit(**stdin1)) {
-      while (!isdigit(**stdin1) && **stdin1 != '\0') {
-        (*stdin1)++;
-      }
-      break;
-    }
+  // move stdin ptr to end of number
+  while (**stdin1 != '\0' && isdigit(**stdin1)) {
     (*stdin1)++;
   }
 
@@ -97,8 +94,10 @@ int scanfl(__constant char *format, long *arg, char **stdin1) {
 #else
 int scanfl(char *format, long *arg, char **stdin1) {
 #endif
-  if (**stdin1 == '\0')
-    return 0;
+  // move stdin ptr to beginning of number
+  while (**stdin1 != '\0' && !isdigit(**stdin1) && **stdin1 != '-') {
+    (*stdin1)++;
+  }
 
   // if number is negative, then update sign
   int sign = 1;
@@ -110,14 +109,8 @@ int scanfl(char *format, long *arg, char **stdin1) {
   // parse the integer argument
   *arg = atoi(*stdin1) * sign;
 
-  // move stdin ptr
-  while (**stdin1 != '\0') {
-    if (!isdigit(**stdin1)) {
-      while (!isdigit(**stdin1) && **stdin1 != '\0') {
-        (*stdin1)++;
-      }
-      break;
-    }
+  // move stdin ptr to end of number
+  while (**stdin1 != '\0' && isdigit(**stdin1)) {
     (*stdin1)++;
   }
 
@@ -129,8 +122,11 @@ int scanfs(__constant char *format, short *arg, char **stdin1) {
 #else
 int scanfs(char *format, short *arg, char **stdin1) {
 #endif
-  if (**stdin1 == '\0')
-    return 0;
+
+  // move stdin ptr to beginning of number
+  while (**stdin1 != '\0' && !isdigit(**stdin1) && **stdin1 != '-') {
+    (*stdin1)++;
+  }
 
   // if number is negative, then update sign
   int sign = 1;
@@ -142,14 +138,8 @@ int scanfs(char *format, short *arg, char **stdin1) {
   // parse the integer argument
   *arg = atoi(*stdin1) * sign;
 
-  // move stdin ptr
-  while (**stdin1 != '\0') {
-    if (!isdigit(**stdin1)) {
-      while (!isdigit(**stdin1) && **stdin1 != '\0') {
-        (*stdin1)++;
-      }
-      break;
-    }
+  // move stdin ptr to end of number
+  while (**stdin1 != '\0' && isdigit(**stdin1)) {
     (*stdin1)++;
   }
 
